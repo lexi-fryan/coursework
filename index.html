@@ -8,3 +8,106 @@
 <style type ="text / html">
 </style>
 </head>
+код графика
+html:
+body
+{
+margin:0;
+display:flex;
+}
+#canvas_plot
+{
+margin:auto;
+background:#666666;
+}
+js:
+ const canvasPlot= document.getElementById( 'canvas_plot');
+cons ctx=canvasPlot.getContext('2D');
+ctx.fillRect(0,0,100,100);
+ctx.fillStyle='#0000ff';
+ctx.fillRect(100,100,200,200);
+ctx.stroke();
+ctx.moveTo(300,300);
+ctx.lineTo(400,400);
+ctx.stroke();
+ctx.strokeStyle='#ff0000'
+ctx.moveTo(320,300);
+ctx.lineTo(420,400);
+ctx.stroke();
+ctx.moveTo(300,300);
+ctx.lineTo(400,400);
+ctx.stroke();
+ctx.beginPath();
+ctx.strokeStyle='#ff0000'
+ctx.moveTo(320,300);
+ctx.lineTo(420,400);
+ctx.stroke();
+ctx.fillText('текст',300,400);
+ctx.fillRect(300,400,2,2);
+ctx.font='30px Arial';
+ctx.textAlign='left';
+ctx.textBaseLine='top';
+js1:
+const  canvasPlotWidth=canvasPlot.clientWidth;
+const  canvasPlotHeight=canvasPlot.clientHeight
+ctx.beginPath();
+ctx.strokeStyle='f5f0e8';
+
+const scaleX=30;
+const scaleY=30;
+
+for ( let i=0; i <= canvasPlotWidth; i=i+scaleX)
+{
+ctx.moveTo(i,0);
+ctx.lineTo(i,canvasPlotHeight);
+}
+
+for (let i=0; i <= canvasPlotHeight; i=i+scaleY)
+{
+ctx.moveTo(0,i);
+ctx.lineTo(canvasPlotWidth,i);
+}
+ctx.stroke();
+const canvasPlot = document.getElementById('canvas_plot')
+const ctx = canvasPlot.getContext('2d')
+const canvasPlotWidth=canvasPlot.clientWidth;
+const canvasPlotHeight=canvasPlot.clientHeight;
+console.log(canvasPlotWidth, canvasPlotHeight);
+
+ctx.beginPath();
+ctx.strokeStyle='f5f0e8';
+
+const scaleX=30;
+const scaleY=30;
+
+const xAxis=Math.round(canvasPlotWidth/scaleX/2)*scaleX;
+const yAxis=Math.round(canvasPlotHeight/scaleY/2)*scaleY;
+
+for (let i=0;i<=canvasPlotWidth;i=i+scaleX)
+{
+ctx.moveTo(i,0);
+ctx.lineTo(i,canvasPlotHeight);
+
+ctx.fillText((i-xAxis)/scaleX,i,yAxis);
+}
+
+for (let i=0;i<=canvasPlotHeight;i=i+scaleY)
+{
+ctx.moveTo(0,i);
+ctx.lineTo(canvasPlotWidth,i);
+ctx.fillText((yAxis-i)/scaleY,xAxis,i);
+}
+ctx.stroke();
+for (let i=0; i<=canvasPlotWidth; i++)
+{
+const  x=(i-xAxis)/scaleX;
+const y=Math.pow(x,2);
+ctx.fillRect(x*scaleX+xAxis,yAxis-scaleY*y,4,4);
+}
+ctx.beginPath();
+ctx.strokeStyle='#00ff00';
+ctx.moveTo(xAxis,0);
+ctx.lineTo(xAxis,canvasPlotHeight);
+ctx.moveTo(0,yAxis);
+ctx.lineTo(canvasPlotWidth,yAxis);
+ctx.stroke();

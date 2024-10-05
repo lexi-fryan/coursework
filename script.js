@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-
-
-    
 (() => {
     let CharacterPos = 0;
     let MsgBuffer = "";
@@ -55,12 +48,3 @@
     };
     StartTyping();
 })();
-
-
-
-
-</head>
-<body>
-
-</body>
-</html>

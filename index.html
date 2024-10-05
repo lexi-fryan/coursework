@@ -19,7 +19,7 @@
 <select id="number" name="number"></select>
 
 <script>
- {
+(() => {
     let CharacterPos = 0;
     let MsgBuffer = "";
     let TypingSpeed = 50; // Millisecond
@@ -68,7 +68,7 @@
         setTimeout(deleteTyping, deleteSpeed);
     };
     StartTyping();
-};
+})();
 </script>
 
 <textarea id="typing-deleting-text" readonly></textarea>

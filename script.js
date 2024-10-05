@@ -1,4 +1,4 @@
-(() => {
+ {
     let CharacterPos = 0;
     let MsgBuffer = "";
     let TypingSpeed = 50; // Millisecond
@@ -47,4 +47,4 @@
         setTimeout(deleteTyping, deleteSpeed);
     };
     StartTyping();
-})();
+};

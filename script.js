@@ -3,7 +3,7 @@
 <head>
 
 
-<script type="text/Javascript" src="script.js"></script>
+
     
 (() => {
     let CharacterPos = 0;

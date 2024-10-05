@@ -15,4 +15,36 @@
 
 <body>
 <div class="animated-rainbow">Nastya Popova</div>
+
+<select id="number" name="number"></select>
+
+<script>
+(() => {
+    let number_start = 1;
+    let number_end = 20;
+    let number_selected = 10;
+    let option = '';
+    option = '<option>Select number</option>'; // first option
+
+    for (let i = number_start; i <= number_end; i++) {
+        let selected = (i === number_selected ? ' selected' : '');
+        option += '<option value="' + i + '"' + selected + '>' + i + '</option>';
+    }
+
+    document.getElementById("number").innerHTML = option;
+})();
+</script>
+
+
+
+
+
+
+
+
 </body>
+
+
+
+
+  

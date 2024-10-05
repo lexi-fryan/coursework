@@ -62,8 +62,10 @@ p {font-size: 40px;}
 }
 
 left{
-float:left: width:40%;
+float:left:
+width:40%;
 }
 right{
-float:right width:50%;
+float:right:
+width:50%;
 }

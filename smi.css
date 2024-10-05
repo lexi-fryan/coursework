@@ -71,3 +71,16 @@ right{
 float:right:
 width:50%;
 }
+
+
+<div class="css-3d-text">н.с</div>
+<style>
+ .css-3d-text {
+    font-size: 77px;
+    color: #ffc107;
+    font-family: Tahoma, Geneva, sans-serif;
+    text-shadow: 0px 0px 0 rgb(229,167,0),1px 0px 0 rgb(204,142,0),2px 0px 0 rgb(178,116,0),3px 0px 0 rgb(153,91,0),4px 0px 0 rgb(127,65,0),5px 0px  0 rgb(101,39,0),6px 0px 5px rgba(0,0,0,0.16),6px 0px 1px rgba(0,0,0,0.5),0px 0px 5px rgba(0,0,0,.2);
+ }
+
+</style>
+

@@ -225,7 +225,7 @@ width:50%;
    }
 }
 
-
+<header>
 .container {
 max-width: 1140px;
 margin: auto;
@@ -243,7 +243,7 @@ color: #2E266F;
 text-decoration: none;
 margin-right: 45px;
 }
-  
+</header> 
 
 </style>
 

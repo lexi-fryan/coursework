@@ -234,8 +234,7 @@ header {
 display: flex;
 align-items: center;
 justify-content: space-between;
-color: pink;
- color-text: #ff0000; 
+color: purpule; 
 }
 .menu-link {
 font-size: 16px;

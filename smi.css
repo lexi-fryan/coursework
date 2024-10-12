@@ -225,13 +225,8 @@ width:50%;
    }
 }
 
-header
-{
-max-width: 1140px;
-margin: auto;
-}
 
-.header {
+header {
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -243,7 +238,5 @@ color: #2E266F;
 text-decoration: none;
 margin-right: 45px;
 }
-</header> 
 
-</style>
 

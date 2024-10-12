@@ -225,7 +225,11 @@ width:50%;
    }
 }
 
-
+.headerpic
+{
+  float:none; 
+}
+  
 header {
 display: flex;
 align-items: center;

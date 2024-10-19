@@ -251,3 +251,24 @@ margin-right: 45px;
 #img1 {float:none;}
 
 
+
+table {
+   border: 1px solid grey;
+}
+th {
+   border: 1px solid grey;
+}
+td {
+   border: 1px solid grey;
+}
+
+
+table {
+   width: 100%;
+}
+table {
+   width: 600px;
+}
+
+  
+

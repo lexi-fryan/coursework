@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация и вход</title>
+    <title>Форма с капчей</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
         .form-container {
-            max-width: 300px;
+            max-width: 400px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -41,6 +41,19 @@
         button:hover {
             background-color: #218838;
         }
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .captcha-code {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #eee;
+            border-radius: 4px;
+        }
         .message {
             margin-top: 20px;
             padding: 10px;
@@ -55,124 +68,82 @@
             background-color: #f8d7da;
             color: #721c24;
         }
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <div id="register-form" class="form-container">
-        <h2>Регистрация</h2>
-        <form id="register">
-            <label for="reg-username">Логин:</label>
-            <input type="text" id="reg-username" required>
+    <div class="form-container">
+        <h2>Форма с капчей</h2>
+        <form id="captcha-form">
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" required>
 
-            <label for="reg-password">Пароль:</label>
-            <input type="password" id="reg-password" required>
+            <label for="email">Ваш email:</label>
+            <input type="email" id="email" required>
 
-            <button type="submit">Зарегистрироваться</button>
+            <div class="captcha-container">
+                <div class="captcha-code" id="captcha-code"></div>
+                <button type="button" id="refresh-captcha">🔄</button>
+            </div>
+
+            <label for="captcha-input">Введите код с картинки:</label>
+            <input type="text" id="captcha-input" required>
+
+            <button type="submit">Отправить</button>
         </form>
-        <p>Уже есть аккаунт? <a href="#" id="show-login">Войти</a></p>
-    </div>
-
-    <div id="login-form" class="form-container hidden">
-        <h2>Вход</h2>
-        <form id="login">
-            <label for="login-username">Логин:</label>
-            <input type="text" id="login-username" required>
-
-            <label for="login-password">Пароль:</label>
-            <input type="password" id="login-password" required>
-
-            <button type="submit">Войти</button>
-        </form>
-        <p>Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a></p>
-    </div>
-
-    <div id="profile" class="form-container hidden">
-        <h2>Профиль</h2>
-        <p>Добро пожаловать, <span id="username"></span>!</p>
-        <button id="logout">Выйти</button>
     </div>
 
     <div id="response-message" class="message"></div>
 
     <script>
         // Элементы DOM
-        const registerForm = document.getElementById('register');
-        const loginForm = document.getElementById('login');
-        const profileSection = document.getElementById('profile');
-        const registerSection = document.getElementById('register-form');
-        const loginSection = document.getElementById('login-form');
-        const showLoginLink = document.getElementById('show-login');
-        const showRegisterLink = document.getElementById('show-register');
-        const logoutButton = document.getElementById('logout');
-        const usernameSpan = document.getElementById('username');
+        const captchaCodeElement = document.getElementById('captcha-code');
+        const refreshCaptchaButton = document.getElementById('refresh-captcha');
+        const captchaForm = document.getElementById('captcha-form');
         const responseMessage = document.getElementById('response-message');
 
-        // Показать форму входа
-        showLoginLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            registerSection.classList.add('hidden');
-            loginSection.classList.remove('hidden');
-        });
+        let captchaCode = generateCaptcha();
 
-        // Показать форму регистрации
-        showRegisterLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginSection.classList.add('hidden');
-            registerSection.classList.remove('hidden');
-        });
-
-        // Регистрация
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('reg-username').value;
-            const password = document.getElementById('reg-password').value;
-
-            // Проверяем, существует ли пользователь
-            if (localStorage.getItem(username)) {
-                showMessage('Пользователь уже существует!', 'error');
-                return;
+        // Генерация случайного кода капчи
+        function generateCaptcha() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
+            return result;
+        }
 
-            // Сохраняем пользователя (в реальном проекте пароль нужно хэшировать!)
-            localStorage.setItem(username, btoa(password)); // Шифруем пароль
-            showMessage('Регистрация успешна!', 'success');
-            registerForm.reset();
-            registerSection.classList.add('hidden');
-            loginSection.classList.remove('hidden');
+        // Обновление капчи
+        function refreshCaptcha() {
+            captchaCode = generateCaptcha();
+            captchaCodeElement.textContent = captchaCode;
+        }
+
+        // Инициализация капчи при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshCaptcha();
         });
 
-        // Вход
-        loginForm.addEventListener('submit', (e) => {
+        // Обновление капчи по кнопке
+        refreshCaptchaButton.addEventListener('click', () => {
+            refreshCaptcha();
+        });
+
+        // Обработка отправки формы
+        captchaForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
 
-            // Проверяем, существует ли пользователь
-            const savedPassword = localStorage.getItem(username);
-            if (!savedPassword) {
-                showMessage('Пользователь не найден!', 'error');
-                return;
-            }
+            const userInput = document.getElementById('captcha-input').value;
 
-            // Проверяем пароль
-            if (btoa(password) === savedPassword) {
-                showMessage('Вход выполнен!', 'success');
-                loginForm.reset();
-                loginSection.classList.add('hidden');
-                profileSection.classList.remove('hidden');
-                usernameSpan.textContent = username;
+            // Проверка капчи
+            if (userInput === captchaCode) {
+                showMessage('Форма успешно отправлена!', 'success');
+                captchaForm.reset();
+                refreshCaptcha();
             } else {
-                showMessage('Неверный пароль!', 'error');
+                showMessage('Неверный код капчи!', 'error');
+                refreshCaptcha();
             }
-        });
-
-        // Выход
-        logoutButton.addEventListener('click', () => {
-            profileSection.classList.add('hidden');
-            registerSection.classList.remove('hidden');
         });
 
         // Функция для отображения сообщений

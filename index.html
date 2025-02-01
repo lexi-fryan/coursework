@@ -1,52 +1,189 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-<meta charset="utf-8">
-<title>Моя страница</title>
-<script src="myjs.js" type="text/javascript"></script>
-
- 
-<link rel="stylesheet" href="smi.css">
-<link rel="icon" href="ff.ico"> 
-<style type ="text / html">
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hanunoo&display=swap" rel="stylesheet">  
-
-<font-family="Noto Sans Hanunoo">
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация и вход</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-
-
 <body>
+    <div id="register-form" class="form-container">
+        <h2>Регистрация</h2>
+        <form id="register">
+            <label for="reg-username">Логин:</label>
+            <input type="text" id="reg-username" required>
 
-<div class="animated-rainbow">дипломная работа Поповой Насти</div>
+            <label for="reg-password">Пароль:</label>
+            <input type="password" id="reg-password" required>
 
- <a href= "https://lexi-fryan.github.io/coursework/kilka.html">обложка</a><br>
-<a href="index1.html">учебный материал</a><br>
- <a href= "https://lexi-fryan.github.io/coursework/darw.html">примеры</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/index1.html">коды</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/rr.html">коды 2</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/rttt.html">коды 3</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/gg.html">коды 4</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/dinazavr.html">коды 5</a>
-<a href= "https://lexi-fryan.github.io/coursework/sis.html">ссылки</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/gaw.html">картинки</a><br>
-<a href= "https://lexi-fryan.github.io/coursework/ns.html">анимация</a><br>
-<a href= "https://onlinetestpad.com/2kid3zs6unsm6">конструктор теста</a><br>
-<a href= "https://www.figma.com/design/tOubLHCctsOC1B2L1mFnHf/Untitled?t=vKZnLVA6LB329yQy-1">черновик Figma</a><br>
-<a href= "https://b24-7lojbp.bitrix24site.ru/">битрикс24</a><br>
-<a href= "https://wordpress.com/page/popova4.wordpress.com/5">вордпресс</a><br>
-<a href= "https://try2007.github.io/test/">графикa Python изучение</a><br>
- <a href= "https://lexi-fryan.github.io/kontrol/">визитка ЧудоНадип</a><br>
- 
- 
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже есть аккаунт? <a href="#" id="show-login">Войти</a></p>
+    </div>
 
- 
-<img id='img1' src="diplom.png" width:100% >
+    <div id="login-form" class="form-container hidden">
+        <h2>Вход</h2>
+        <form id="login">
+            <label for="login-username">Логин:</label>
+            <input type="text" id="login-username" required>
 
+            <label for="login-password">Пароль:</label>
+            <input type="password" id="login-password" required>
 
-<body/>
+            <button type="submit">Войти</button>
+        </form>
+        <p>Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a></p>
+    </div>
+
+    <div id="profile" class="form-container hidden">
+        <h2>Профиль</h2>
+        <p>Добро пожаловать, <span id="username"></span>!</p>
+        <button id="logout">Выйти</button>
+    </div>
+
+    <div id="response-message" class="message"></div>
+
+    <script>
+        // Элементы DOM
+        const registerForm = document.getElementById('register');
+        const loginForm = document.getElementById('login');
+        const profileSection = document.getElementById('profile');
+        const registerSection = document.getElementById('register-form');
+        const loginSection = document.getElementById('login-form');
+        const showLoginLink = document.getElementById('show-login');
+        const showRegisterLink = document.getElementById('show-register');
+        const logoutButton = document.getElementById('logout');
+        const usernameSpan = document.getElementById('username');
+        const responseMessage = document.getElementById('response-message');
+
+        // Показать форму входа
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+        });
+
+        // Показать форму регистрации
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginSection.classList.add('hidden');
+            registerSection.classList.remove('hidden');
+        });
+
+        // Регистрация
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+
+            // Проверяем, существует ли пользователь
+            if (localStorage.getItem(username)) {
+                showMessage('Пользователь уже существует!', 'error');
+                return;
+            }
+
+            // Сохраняем пользователя (в реальном проекте пароль нужно хэшировать!)
+            localStorage.setItem(username, btoa(password)); // Шифруем пароль
+            showMessage('Регистрация успешна!', 'success');
+            registerForm.reset();
+            registerSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+        });
+
+        // Вход
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            // Проверяем, существует ли пользователь
+            const savedPassword = localStorage.getItem(username);
+            if (!savedPassword) {
+                showMessage('Пользователь не найден!', 'error');
+                return;
+            }
+
+            // Проверяем пароль
+            if (btoa(password) === savedPassword) {
+                showMessage('Вход выполнен!', 'success');
+                loginForm.reset();
+                loginSection.classList.add('hidden');
+                profileSection.classList.remove('hidden');
+                usernameSpan.textContent = username;
+            } else {
+                showMessage('Неверный пароль!', 'error');
+            }
+        });
+
+        // Выход
+        logoutButton.addEventListener('click', () => {
+            profileSection.classList.add('hidden');
+            registerSection.classList.remove('hidden');
+        });
+
+        // Функция для отображения сообщений
+        function showMessage(text, type) {
+            responseMessage.textContent = text;
+            responseMessage.className = `message ${type}`;
+            responseMessage.style.display = 'block';
+            setTimeout(() => {
+                responseMessage.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
 
     if (name && email && message) {
         alert('Спасибо за ваше сообщение, ' + name + '! Мы свяжемся с вами в ближайшее время.');
-        sign = prompt(); //  open the blank prompt window
+        sign = window.prompt(); //  open the blank prompt window
         document.getElementById('contact-form').reset();
         
     } else {
